@@ -181,7 +181,6 @@ let previousSelectedCircle = circles[0];
 let lastUpdatedCircle = circles[0];
 
 function inputChanged() {
-    console.log("okay");
     console.log(input.value);
     let obj = getObject(input.value);
     if ( obj != null) {
@@ -287,10 +286,12 @@ function drawLinks(parent, child) {
     ctx.globalAlpha = 1;
 }
 
-function getObject(label) {
+function getObject(name) {
+    name = name.toLowerCase();
     let object = null;
     for(let j=0;j<fixed_circles.length;j++) {
-        if (label == fixed_circles[j].label) {
+        current_name = fixed_circles[j].label;
+        if (name == current_name.toLowerCase()) {
             object = fixed_circles[j];
         }
         
@@ -433,8 +434,6 @@ function Circle(label, x, y, r, fill, stroke) {
     this.stroke = stroke;
 
     this.draw = function () {
-        
-        
         var iconImg = new Image();
         iconImg.src = "./images/" + this.label.replace(' ', '_') + ".png";
         if (iconImg.complete) {
