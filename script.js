@@ -491,7 +491,7 @@ function Circle(label, x, y, r, fill, stroke) {
         var iconImg = new Image();
         iconImg.src = "./images/" + this.label.replace(' ', '_') + ".png";
         
-        iconImg.onload = function() {
+        iconImg.onload = () => {
             // save state as restoring is the only way to remove a clip-mask
             ctx.save();
 
@@ -526,7 +526,7 @@ function Circle(label, x, y, r, fill, stroke) {
             }
             
             ctx.globalAlpha = 1;
-        }
+        };
     }
 }
 
