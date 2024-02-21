@@ -180,24 +180,23 @@ let fixed_circles = [];
 let circle_positions = [[200, 200]];
 
 let connectors = new Array;
-let links = new Array;
+var links = new Array;
 
 let colors = ["LightSeaGreen", "RoyalBlue", "Salmon"];
 
 let parentInput;
 let childInput;
 
-let targetChild;
-
 let targetChildChanged = false;
-var lastSeenChildren = new Array;
+var lastSeenChildren = new Array();
 
 let circle_radius = 30;
 let max_recursion = 10;
 
+var targetChild;
+
 let firstSelectedCircle;
 let secondSelectedCircle;
-let lastUpdatedCircle;
 
 function parentInputChanged() {
     let obj = getObject(parentInput.value);
@@ -224,17 +223,14 @@ function childInputChanged() {
 }
 
 //main draw method
-function draw(drawOnly = false) {
+function draw() {
     ctx.canvas.width  = window.innerWidth;
     ctx.canvas.height = window.innerHeight;
 
     //clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    if (!drawOnly) {
-        gatherRelations();
-    }
-    
+    gatherRelations();    
     drawLinks();
     drawCircles();
 }
@@ -265,14 +261,11 @@ function drawCircles() {
 }
 
 function gatherRelations () {
-    if (lastUpdatedCircle != firstSelectedCircle) {
-        lastUpdatedCircle = firstSelectedCircle;
         clearColors();
 
         let randomColor = '#'+(Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0');
         
         recursiveGetRelations(firstSelectedCircle.label, new Array(), new Array(), 0, new Array());
-    }
 }
 
 function drawLinks() {
@@ -301,6 +294,7 @@ function recursiveGetRelations(parent_name, seen_parent, seen_children, count) {
         parent.alpha = 1;
         seen_children.push(parent_name);
     }
+    
     lastSeenChildren.push(parent);
     if(!seen_parent.includes(parent_name)) {
         seen_parent.push(parent_name);
@@ -315,17 +309,19 @@ function recursiveGetRelations(parent_name, seen_parent, seen_children, count) {
                 child_name = connector[1];
                 child = getObject(child_name);
                 
+                console.log(secondSelectedCircle.label);
+                
                 if(!seen_children.includes(child_name)) {
                     seen_children.push(parent_name);
                     if (child.recursion > count || child.recursion == 0) {
-                        if (targetChild == child_name) {
+                        if (secondSelectedCircle.label == child_name) {
+                            console.log(lastSeenChildren[0].label);
                             links = [];
                             lastSeenChildren.push(child);
                             for(i=1;i<lastSeenChildren.length;i++) {
                                 links.push([lastSeenChildren[i-1], lastSeenChildren[i]]);
                             }
                             lastSeenChildren.pop();
-                            console.log(links);
                         }
                         child.recursion = count;
                     }
@@ -574,9 +570,8 @@ function canvasClick(e) {
         let distanceFromCenter = Math.sqrt(Math.pow(circle.x - clickX, 2) + Math.pow(circle.y - clickY, 2))
         if (distanceFromCenter <= circle.r) {
             
-
             // clicked a circle while a second option was already selected
-            if(circle == secondSelectedCircle && !isDragging) {
+            if(circle == secondSelectedCircle) {
                 firstSelectedCircle.isSelected = false;
                 firstSelectedCircle = circle;
                 
@@ -585,13 +580,15 @@ function canvasClick(e) {
             }
             else {
                 secondSelectedCircle.isSelected = false;
-                circle.isSelected = true;
-                
                 secondSelectedCircle = circle;
-                childInput.value = circle.label;
+                
+                circle.isSelected = true;
+                console.log(secondSelectedCircle.label);
+                gatherRelations();
             }
-
-            isDragging = true;
+            if (circle == firstSelectedCircle ) {
+                isDragging = true;
+            }
 
             draw();
             return;
@@ -614,7 +611,7 @@ function dragCircle(e) {
       firstSelectedCircle.x = x;
       firstSelectedCircle.y = y;
 
-      draw(true);
+      draw();
     }
   }
 }
