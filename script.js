@@ -26,154 +26,153 @@ window.onload = function() {
     canvas.onmouseout = stopDragging;
     canvas.onmousemove = dragCircle;
     
-    previousSelectedCircle = circles[0];
-    previousSelectedCircle.isSelected = true;
+    firstSelectedCircle = circles[0];
+    firstSelectedCircle.isSelected = true;
     
-    populateCirclePositions();
-    populateConnections();
-    populateCircles();
-    populateDatalist();
-    draw();
+    secondSelectedCircle = circles[1];
+    secondSelectedCircle.isSelected = true;
+    
+    firstDraw();
 };
 
 let circles = [
-new Circle("Lamball", 50, 50, 50, "red", "black"),
-new Circle("Cattiva", 50, 50, 50, "red", "black"),
-new Circle("Chikipi", 50, 50, 50, "red", "black"),
-new Circle("Lifmunk", 50, 50, 50, "red", "black"),
-new Circle("Foxparks", 50, 50, 50, "red", "black"),
-new Circle("Fuack", 50, 50, 50, "red", "black"),
-new Circle("Sparkit", 50, 50, 50, "red", "black"),
-new Circle("Tanzee", 50, 50, 50, "red", "black"),
-new Circle("Rooby", 50, 50, 50, "red", "black"),
-new Circle("Pengullet", 50, 50, 50, "red", "black"),
-new Circle("Penking", 50, 50, 50, "red", "black"),
-new Circle("Jolthog", 50, 50, 50, "red", "black"),
-new Circle("Jolthog Cryst", 50, 50, 50, "red", "black"),
-new Circle("Gumoss", 50, 50, 50, "red", "black"),
-new Circle("Vixy", 50, 50, 50, "red", "black"),
-new Circle("Hoocrates", 50, 50, 50, "red", "black"),
-new Circle("Teafant", 50, 50, 50, "red", "black"),
-new Circle("Depresso", 50, 50, 50, "red", "black"),
-new Circle("Cremis", 50, 50, 50, "red", "black"),
-new Circle("Daedream", 50, 50, 50, "red", "black"),
-new Circle("Rushoar", 50, 50, 50, "red", "black"),
-new Circle("Nox", 50, 50, 50, "red", "black"),
-new Circle("Fuddler", 50, 50, 50, "red", "black"),
-new Circle("Killamari", 50, 50, 50, "red", "black"),
-new Circle("Mau", 50, 50, 50, "red", "black"),
-new Circle("Mau Cryst", 50, 50, 50, "red", "black"),
-new Circle("Celaray", 50, 50, 50, "red", "black"),
-new Circle("Direhowl", 50, 50, 50, "red", "black"),
-new Circle("Tocotoco", 50, 50, 50, "red", "black"),
-new Circle("Flopie", 50, 50, 50, "red", "black"),
-new Circle("Mozzarina", 50, 50, 50, "red", "black"),
-new Circle("Bristla", 50, 50, 50, "red", "black"),
-new Circle("Gobfin", 50, 50, 50, "red", "black"),
-new Circle("Gobfin Ignis", 50, 50, 50, "red", "black"),
-new Circle("Hangyu", 50, 50, 50, "red", "black"),
-new Circle("Hangyu Cryst", 50, 50, 50, "red", "black"),
-new Circle("Mossanda", 50, 50, 50, "red", "black"),
-new Circle("Mossanda Lux", 50, 50, 50, "red", "black"),
-new Circle("Woolipop", 50, 50, 50, "red", "black"),
-new Circle("Caprity", 50, 50, 50, "red", "black"),
-new Circle("Melpaca", 50, 50, 50, "red", "black"),
-new Circle("Eikthyrdeer", 50, 50, 50, "red", "black"),
-new Circle("Eikthyrdeer Terra", 50, 50, 50, "red", "black"),
-new Circle("Nitewing", 50, 50, 50, "red", "black"),
-new Circle("Ribbuny", 50, 50, 50, "red", "black"),
-new Circle("Incineram", 50, 50, 50, "red", "black"),
-new Circle("Incineram Noct", 50, 50, 50, "red", "black"),
-new Circle("Cinnamoth", 50, 50, 50, "red", "black"),
-new Circle("Arsox", 50, 50, 50, "red", "black"),
-new Circle("Dumud", 50, 50, 50, "red", "black"),
-new Circle("Cawgnito", 50, 50, 50, "red", "black"),
-new Circle("Leezpunk", 50, 50, 50, "red", "black"),
-new Circle("Leezpunk Ignis", 50, 50, 50, "red", "black"),
-new Circle("Loupmoon", 50, 50, 50, "red", "black"),
-new Circle("Galeclaw", 50, 50, 50, "red", "black"),
-new Circle("Robinquill", 50, 50, 50, "red", "black"),
-new Circle("Robinquill Terra", 50, 50, 50, "red", "black"),
-new Circle("Gorirat", 50, 50, 50, "red", "black"),
-new Circle("Beegarde", 50, 50, 50, "red", "black"),
-new Circle("Elizabee", 50, 50, 50, "red", "black"),
-new Circle("Grintale", 50, 50, 50, "red", "black"),
-new Circle("Swee", 50, 50, 50, "red", "black"),
-new Circle("Sweepa", 50, 50, 50, "red", "black"),
-new Circle("Chillet", 50, 50, 50, "red", "black"),
-new Circle("Univolt", 50, 50, 50, "red", "black"),
-new Circle("Foxcicle", 50, 50, 50, "red", "black"),
-new Circle("Pyrin", 50, 50, 50, "red", "black"),
-new Circle("Pyrin Noct", 50, 50, 50, "red", "black"),
-new Circle("Reindrix", 50, 50, 50, "red", "black"),
-new Circle("Rayhound", 50, 50, 50, "red", "black"),
-new Circle("Kitsun", 50, 50, 50, "red", "black"),
-new Circle("Dazzi", 50, 50, 50, "red", "black"),
-new Circle("Lunaris", 50, 50, 50, "red", "black"),
-new Circle("Dinossom", 50, 50, 50, "red", "black"),
-new Circle("Dinossom Lux", 50, 50, 50, "red", "black"),
-new Circle("Surfent", 50, 50, 50, "red", "black"),
-new Circle("Surfent Terra", 50, 50, 50, "red", "black"),
-new Circle("Maraith", 50, 50, 50, "red", "black"),
-new Circle("Digtoise", 50, 50, 50, "red", "black"),
-new Circle("Tombat", 50, 50, 50, "red", "black"),
-new Circle("Lovander", 50, 50, 50, "red", "black"),
-new Circle("Flambelle", 50, 50, 50, "red", "black"),
-new Circle("Vanwyrm", 50, 50, 50, "red", "black"),
-new Circle("Vanwyrm Cryst", 50, 50, 50, "red", "black"),
-new Circle("Bushi", 50, 50, 50, "red", "black"),
-new Circle("Beakon", 50, 50, 50, "red", "black"),
-new Circle("Ragnahawk", 50, 50, 50, "red", "black"),
-new Circle("Katress", 50, 50, 50, "red", "black"),
-new Circle("Wixen", 50, 50, 50, "red", "black"),
-new Circle("Verdash", 50, 50, 50, "red", "black"),
-new Circle("Vaelet", 50, 50, 50, "red", "black"),
-new Circle("Sibelyx", 50, 50, 50, "red", "black"),
-new Circle("Elphidran", 50, 50, 50, "red", "black"),
-new Circle("Elphidran Aqua", 50, 50, 50, "red", "black"),
-new Circle("Kelpsea", 50, 50, 50, "red", "black"),
-new Circle("Kelpsea Ignis", 50, 50, 50, "red", "black"),
-new Circle("Azurobe", 50, 50, 50, "red", "black"),
-new Circle("Cryolinx", 50, 50, 50, "red", "black"),
-new Circle("Blazehowl", 50, 50, 50, "red", "black"),
-new Circle("Blazehowl Noct", 50, 50, 50, "red", "black"),
-new Circle("Relaxaurus", 50, 50, 50, "red", "black"),
-new Circle("Relaxaurus Lux", 50, 50, 50, "red", "black"),
-new Circle("Broncherry", 50, 50, 50, "red", "black"),
-new Circle("Broncherry Aqua", 50, 50, 50, "red", "black"),
-new Circle("Petallia", 50, 50, 50, "red", "black"),
-new Circle("Reptyro", 50, 50, 50, "red", "black"),
-new Circle("Reptyro Cryst", 50, 50, 50, "red", "black"),
-new Circle("Kingpaca", 50, 50, 50, "red", "black"),
-new Circle("Kingpaca Cryst", 50, 50, 50, "red", "black"),
-new Circle("Mammorest", 50, 50, 50, "red", "black"),
-new Circle("Mammorest Cryst", 50, 50, 50, "red", "black"),
-new Circle("Wumpo", 50, 50, 50, "red", "black"),
-new Circle("Wumpo Botan", 50, 50, 50, "red", "black"),
-new Circle("Warsect", 50, 50, 50, "red", "black"),
-new Circle("Fenglope", 50, 50, 50, "red", "black"),
-new Circle("Felbat", 50, 50, 50, "red", "black"),
-new Circle("Quivern", 50, 50, 50, "red", "black"),
-new Circle("Blazamut", 50, 50, 50, "red", "black"),
-new Circle("Helzephyr", 50, 50, 50, "red", "black"),
-new Circle("Astegon", 50, 50, 50, "red", "black"),
-new Circle("Menasting", 50, 50, 50, "red", "black"),
-new Circle("Anubis", 50, 50, 50, "red", "black"),
-new Circle("Jormuntide", 50, 50, 50, "red", "black"),
-new Circle("Jormuntide Ignis", 50, 50, 50, "red", "black"),
-new Circle("Suzaku", 50, 50, 50, "red", "black"),
-new Circle("Suzaku Aqua", 50, 50, 50, "red", "black"),
-new Circle("Grizzbolt", 50, 50, 50, "red", "black"),
-new Circle("Lyleen", 50, 50, 50, "red", "black"),
-new Circle("Lyleen Noct", 50, 50, 50, "red", "black"),
-new Circle("Faleris", 50, 50, 50, "red", "black"),
-new Circle("Orserk", 50, 50, 50, "red", "black"),
-new Circle("Shadowbeak", 50, 50, 50, "red", "black"),
-new Circle("Paladius", 50, 50, 50, "red", "black"),
-new Circle("Necromus", 50, 50, 50, "red", "black"),
-new Circle("Frostallion", 50, 50, 50, "red", "black"),
-new Circle("Frostallion Noct", 50, 50, 50, "red", "black"),
-new Circle("Jetragon", 50, 50, 50, "red", "black"),
+new Circle("Lamball", null, 50, 50, 50, "red", "black"),
+new Circle("Cattiva", null, 50, 50, 50, "red", "black"),
+new Circle("Chikipi", null, 50, 50, 50, "red", "black"),
+new Circle("Lifmunk", null, 50, 50, 50, "red", "black"),
+new Circle("Foxparks", null, 50, 50, 50, "red", "black"),
+new Circle("Fuack", null, 50, 50, 50, "red", "black"),
+new Circle("Sparkit", null, 50, 50, 50, "red", "black"),
+new Circle("Tanzee", null, 50, 50, 50, "red", "black"),
+new Circle("Rooby", null, 50, 50, 50, "red", "black"),
+new Circle("Pengullet", null, 50, 50, 50, "red", "black"),
+new Circle("Penking", null, 50, 50, 50, "red", "black"),
+new Circle("Jolthog", null, 50, 50, 50, "red", "black"),
+new Circle("Jolthog Cryst", null, 50, 50, 50, "red", "black"),
+new Circle("Gumoss", null, 50, 50, 50, "red", "black"),
+new Circle("Vixy", null, 50, 50, 50, "red", "black"),
+new Circle("Hoocrates", null, 50, 50, 50, "red", "black"),
+new Circle("Teafant", null, 50, 50, 50, "red", "black"),
+new Circle("Depresso", null, 50, 50, 50, "red", "black"),
+new Circle("Cremis", null, 50, 50, 50, "red", "black"),
+new Circle("Daedream", null, 50, 50, 50, "red", "black"),
+new Circle("Rushoar", null, 50, 50, 50, "red", "black"),
+new Circle("Nox", null, 50, 50, 50, "red", "black"),
+new Circle("Fuddler", null, 50, 50, 50, "red", "black"),
+new Circle("Killamari", null, 50, 50, 50, "red", "black"),
+new Circle("Mau", null, 50, 50, 50, "red", "black"),
+new Circle("Mau Cryst", null, 50, 50, 50, "red", "black"),
+new Circle("Celaray", null, 50, 50, 50, "red", "black"),
+new Circle("Direhowl", null, 50, 50, 50, "red", "black"),
+new Circle("Tocotoco", null, 50, 50, 50, "red", "black"),
+new Circle("Flopie", null, 50, 50, 50, "red", "black"),
+new Circle("Mozzarina", null, 50, 50, 50, "red", "black"),
+new Circle("Bristla", null, 50, 50, 50, "red", "black"),
+new Circle("Gobfin", null, 50, 50, 50, "red", "black"),
+new Circle("Gobfin Ignis", null, 50, 50, 50, "red", "black"),
+new Circle("Hangyu", null, 50, 50, 50, "red", "black"),
+new Circle("Hangyu Cryst", null, 50, 50, 50, "red", "black"),
+new Circle("Mossanda", null, 50, 50, 50, "red", "black"),
+new Circle("Mossanda Lux", null, 50, 50, 50, "red", "black"),
+new Circle("Woolipop", null, 50, 50, 50, "red", "black"),
+new Circle("Caprity", null, 50, 50, 50, "red", "black"),
+new Circle("Melpaca", null, 50, 50, 50, "red", "black"),
+new Circle("Eikthyrdeer", null, 50, 50, 50, "red", "black"),
+new Circle("Eikthyrdeer Terra", null, 50, 50, 50, "red", "black"),
+new Circle("Nitewing", null, 50, 50, 50, "red", "black"),
+new Circle("Ribbuny", null, 50, 50, 50, "red", "black"),
+new Circle("Incineram", null, 50, 50, 50, "red", "black"),
+new Circle("Incineram Noct", null, 50, 50, 50, "red", "black"),
+new Circle("Cinnamoth", null, 50, 50, 50, "red", "black"),
+new Circle("Arsox", null, 50, 50, 50, "red", "black"),
+new Circle("Dumud", null, 50, 50, 50, "red", "black"),
+new Circle("Cawgnito", null, 50, 50, 50, "red", "black"),
+new Circle("Leezpunk", null, 50, 50, 50, "red", "black"),
+new Circle("Leezpunk Ignis", null, 50, 50, 50, "red", "black"),
+new Circle("Loupmoon", null, 50, 50, 50, "red", "black"),
+new Circle("Galeclaw", null, 50, 50, 50, "red", "black"),
+new Circle("Robinquill", null, 50, 50, 50, "red", "black"),
+new Circle("Robinquill Terra", null, 50, 50, 50, "red", "black"),
+new Circle("Gorirat", null, 50, 50, 50, "red", "black"),
+new Circle("Beegarde", null, 50, 50, 50, "red", "black"),
+new Circle("Elizabee", null, 50, 50, 50, "red", "black"),
+new Circle("Grintale", null, 50, 50, 50, "red", "black"),
+new Circle("Swee", null, 50, 50, 50, "red", "black"),
+new Circle("Sweepa", null, 50, 50, 50, "red", "black"),
+new Circle("Chillet", null, 50, 50, 50, "red", "black"),
+new Circle("Univolt", null, 50, 50, 50, "red", "black"),
+new Circle("Foxcicle", null, 50, 50, 50, "red", "black"),
+new Circle("Pyrin", null, 50, 50, 50, "red", "black"),
+new Circle("Pyrin Noct", null, 50, 50, 50, "red", "black"),
+new Circle("Reindrix", null, 50, 50, 50, "red", "black"),
+new Circle("Rayhound", null, 50, 50, 50, "red", "black"),
+new Circle("Kitsun", null, 50, 50, 50, "red", "black"),
+new Circle("Dazzi", null, 50, 50, 50, "red", "black"),
+new Circle("Lunaris", null, 50, 50, 50, "red", "black"),
+new Circle("Dinossom", null, 50, 50, 50, "red", "black"),
+new Circle("Dinossom Lux", null, 50, 50, 50, "red", "black"),
+new Circle("Surfent", null, 50, 50, 50, "red", "black"),
+new Circle("Surfent Terra", null, 50, 50, 50, "red", "black"),
+new Circle("Maraith", null, 50, 50, 50, "red", "black"),
+new Circle("Digtoise", null, 50, 50, 50, "red", "black"),
+new Circle("Tombat", null, 50, 50, 50, "red", "black"),
+new Circle("Lovander", null, 50, 50, 50, "red", "black"),
+new Circle("Flambelle", null, 50, 50, 50, "red", "black"),
+new Circle("Vanwyrm", null, 50, 50, 50, "red", "black"),
+new Circle("Vanwyrm Cryst", null, 50, 50, 50, "red", "black"),
+new Circle("Bushi", null, 50, 50, 50, "red", "black"),
+new Circle("Beakon", null, 50, 50, 50, "red", "black"),
+new Circle("Ragnahawk", null, 50, 50, 50, "red", "black"),
+new Circle("Katress", null, 50, 50, 50, "red", "black"),
+new Circle("Wixen", null, 50, 50, 50, "red", "black"),
+new Circle("Verdash", null, 50, 50, 50, "red", "black"),
+new Circle("Vaelet", null, 50, 50, 50, "red", "black"),
+new Circle("Sibelyx", null, 50, 50, 50, "red", "black"),
+new Circle("Elphidran", null, 50, 50, 50, "red", "black"),
+new Circle("Elphidran Aqua", null, 50, 50, 50, "red", "black"),
+new Circle("Kelpsea", null, 50, 50, 50, "red", "black"),
+new Circle("Kelpsea Ignis", null, 50, 50, 50, "red", "black"),
+new Circle("Azurobe", null, 50, 50, 50, "red", "black"),
+new Circle("Cryolinx", null, 50, 50, 50, "red", "black"),
+new Circle("Blazehowl", null, 50, 50, 50, "red", "black"),
+new Circle("Blazehowl Noct", null, 50, 50, 50, "red", "black"),
+new Circle("Relaxaurus", null, 50, 50, 50, "red", "black"),
+new Circle("Relaxaurus Lux", null, 50, 50, 50, "red", "black"),
+new Circle("Broncherry", null, 50, 50, 50, "red", "black"),
+new Circle("Broncherry Aqua", null, 50, 50, 50, "red", "black"),
+new Circle("Petallia", null, 50, 50, 50, "red", "black"),
+new Circle("Reptyro", null, 50, 50, 50, "red", "black"),
+new Circle("Reptyro Cryst", null, 50, 50, 50, "red", "black"),
+new Circle("Kingpaca", null, 50, 50, 50, "red", "black"),
+new Circle("Kingpaca Cryst", null, 50, 50, 50, "red", "black"),
+new Circle("Mammorest", null, 50, 50, 50, "red", "black"),
+new Circle("Mammorest Cryst", null, 50, 50, 50, "red", "black"),
+new Circle("Wumpo", null, 50, 50, 50, "red", "black"),
+new Circle("Wumpo Botan", null, 50, 50, 50, "red", "black"),
+new Circle("Warsect", null, 50, 50, 50, "red", "black"),
+new Circle("Fenglope", null, 50, 50, 50, "red", "black"),
+new Circle("Felbat", null, 50, 50, 50, "red", "black"),
+new Circle("Quivern", null, 50, 50, 50, "red", "black"),
+new Circle("Blazamut", null, 50, 50, 50, "red", "black"),
+new Circle("Helzephyr", null, 50, 50, 50, "red", "black"),
+new Circle("Astegon", null, 50, 50, 50, "red", "black"),
+new Circle("Menasting", null, 50, 50, 50, "red", "black"),
+new Circle("Anubis", null, 50, 50, 50, "red", "black"),
+new Circle("Jormuntide", null, 50, 50, 50, "red", "black"),
+new Circle("Jormuntide Ignis", null, 50, 50, 50, "red", "black"),
+new Circle("Suzaku", null, 50, 50, 50, "red", "black"),
+new Circle("Suzaku Aqua", null, 50, 50, 50, "red", "black"),
+new Circle("Grizzbolt", null, 50, 50, 50, "red", "black"),
+new Circle("Lyleen", null, 50, 50, 50, "red", "black"),
+new Circle("Lyleen Noct", null, 50, 50, 50, "red", "black"),
+new Circle("Faleris", null, 50, 50, 50, "red", "black"),
+new Circle("Orserk", null, 50, 50, 50, "red", "black"),
+new Circle("Shadowbeak", null, 50, 50, 50, "red", "black"),
+new Circle("Paladius", null, 50, 50, 50, "red", "black"),
+new Circle("Necromus", null, 50, 50, 50, "red", "black"),
+new Circle("Frostallion", null, 50, 50, 50, "red", "black"),
+new Circle("Frostallion Noct", null, 50, 50, 50, "red", "black"),
+new Circle("Jetragon", null, 50, 50, 50, "red", "black"),
 ]
 
 let fixed_circles = [];
@@ -196,13 +195,14 @@ var lastSeenChildren = new Array;
 let circle_radius = 30;
 let max_recursion = 10;
 
-let previousSelectedCircle;
-let lastUpdatedCircle = circles[0];
+let firstSelectedCircle;
+let secondSelectedCircle;
+let lastUpdatedCircle;
 
 function parentInputChanged() {
     let obj = getObject(parentInput.value);
     if ( obj != null) {
-        previousSelectedCircle = obj;
+        firstSelectedCircle = obj;
         draw();
     }
 }
@@ -224,33 +224,54 @@ function childInputChanged() {
 }
 
 //main draw method
-function draw() {
+function draw(drawOnly = false) {
     ctx.canvas.width  = window.innerWidth;
     ctx.canvas.height = window.innerHeight;
 
     //clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    drawConnectors();
+    
+    if (!drawOnly) {
+        gatherRelations();
+    }
+    
     drawLinks();
     drawCircles();
 }
 
-//draw circles
-function drawCircles() {
-    for (let i = circles.length - 1; i >= 0; i--) {
-        circles[i].draw();
-    }
+function firstDraw() {
+    ctx.canvas.width  = window.innerWidth;
+    ctx.canvas.height = window.innerHeight;
+
+    //clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    populateCirclePositions();
+    populateConnections();
+    populateCircles();
+    populateDatalist();
+    gatherRelations();
 }
 
-function drawConnectors () {
-    if (lastUpdatedCircle != previousSelectedCircle) {
-        lastUpdatedCircle = previousSelectedCircle;
+//draw circles
+function drawCircles() {
+    for(let i = circles.length - 1; i >= 0; i--) {
+        if(circles[i] != firstSelectedCircle) {
+            circles[i].draw();
+        }
+    }
+    // always draw selected circle on top
+    firstSelectedCircle.draw();
+}
+
+function gatherRelations () {
+    if (lastUpdatedCircle != firstSelectedCircle) {
+        lastUpdatedCircle = firstSelectedCircle;
         clearColors();
 
         let randomColor = '#'+(Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0');
         
-        recursiveGetRelations(previousSelectedCircle.label, new Array(), new Array(), 0, new Array());
+        recursiveGetRelations(firstSelectedCircle.label, new Array(), new Array(), 0, new Array());
     }
 }
 
@@ -365,6 +386,13 @@ function populateCircles() {
         circles[i].x = circle_positions[i][0];
         circles[i].y = circle_positions[i][1];
         circles[i].fill = "Black";
+        
+        circles[i].icon = new Image();
+        circles[i].icon.src = "./images/" + circles[i].label.replace(' ', '_') + ".png";
+        
+        circles[i].icon.onload = () => {
+            circles[i].draw();
+        }
     }
 }
 
@@ -473,11 +501,12 @@ function distance(ux, uy, vx, vy) {
 }
 
 //circle Object
-function Circle(label, x, y, r, fill, stroke) {
+function Circle(label, icon, x, y, r, fill, stroke) {
     this.startingAngle = 0;
     this.endingAngle = 2 * Math.PI;
     this.isSelected = false;
     this.label = label;
+    this.icon = icon;
     this.x = x;
     this.y = y;
     this.r = r;
@@ -488,34 +517,24 @@ function Circle(label, x, y, r, fill, stroke) {
     this.stroke = stroke;
 
     this.draw = function () {
+<<<<<<< Updated upstream
         var iconImg = new Image();
         iconImg.src = "./images/" + this.label.replace(' ', '_') + ".png";
         
         iconImg.onload = () => {
             // save state as restoring is the only way to remove a clip-mask
+=======
+        if(this.isSelected) {
+>>>>>>> Stashed changes
             ctx.save();
-
-            // define clip-mask using path operations
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.r, this.startingAngle, this.endingAngle);
-            ctx.fillStyle = this.fill;
-            ctx.lineCap = 'round'
-            ctx.lineWidth = 1;
-            
-            ctx.globalAlpha = 0.5;
+            ctx.arc(this.x, this.y, this.r*2, this.startingAngle, this.endingAngle);
+            const gradient = ctx.createRadialGradient(this.x, this.y, this.r, this.x, this.y, this.r*1.5);
+            gradient.addColorStop(0, "black");
+            gradient.addColorStop(1, "transparent");
+            ctx.fillStyle = gradient;
             ctx.fill();
-            ctx.globalAlpha = this.alpha;
-            
-            ctx.strokeStyle = this.stroke;
-            ctx.stroke();
-            
-            ctx.clip();
-
-            // draw in top image
-            ctx.drawImage(iconImg, this.x-this.r, this.y-this.r, this.r*2, this.r*2);
-
-            // remove clip mask
             ctx.restore();
+<<<<<<< Updated upstream
             
             if (this.recursion > colors.length) {
                 ctx.globalAlpha = 0.25;
@@ -527,30 +546,79 @@ function Circle(label, x, y, r, fill, stroke) {
             
             ctx.globalAlpha = 1;
         };
+=======
+        }
+        
+        // save state as restoring is the only way to remove a clip-mask
+        ctx.save();
+
+        // define clip-mask using path operations
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, this.startingAngle, this.endingAngle);
+        
+        ctx.globalAlpha = 0.5;
+        ctx.fillStyle = this.fill;
+        ctx.fill();
+        ctx.globalAlpha = this.alpha;
+        
+        ctx.lineCap = 'round'
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = this.stroke;
+        ctx.stroke();
+        
+        ctx.clip();
+
+        // draw in top image
+        ctx.drawImage(this.icon, this.x-this.r, this.y-this.r, this.r*2, this.r*2);
+
+        // remove clip mask
+        ctx.restore();
+        
+        if (this.recursion > colors.length) {
+            ctx.globalAlpha = 0.25;
+            ctx.font = circle_radius.toString() + "px Arial ";
+            ctx.fillStyle = "black";
+            ctx.textAlign = "center";
+            ctx.fillText(this.recursion, this.x, this.y+circle_radius/2.5);
+        }            
+        ctx.globalAlpha = 1;
+>>>>>>> Stashed changes
     }
 }
 
 function canvasClick(e) {
-  let clickX = e.pageX - canvas.offsetLeft;
-  let clickY = e.pageY - canvas.offsetTop;
+    let clickX = e.pageX - canvas.offsetLeft;
+    let clickY = e.pageY - canvas.offsetTop;
 
-  for(let i=circles.length-1; i>=0; i--) {
-    let circle = circles[i];
+    for(let i=circles.length-1; i>=0; i--) {
+        let circle = circles[i];
 
-    let distanceFromCenter = Math.sqrt(Math.pow(circle.x - clickX, 2) + Math.pow(circle.y - clickY, 2))
-    if (distanceFromCenter <= circle.r) {
-      if (previousSelectedCircle != null) previousSelectedCircle.isSelected = false;
-      previousSelectedCircle = circle;
+        let distanceFromCenter = Math.sqrt(Math.pow(circle.x - clickX, 2) + Math.pow(circle.y - clickY, 2))
+        if (distanceFromCenter <= circle.r) {
+            
 
-      circle.isSelected = true;
-      parentInput.value = circle.label;
+            // clicked a circle while a second option was already selected
+            if(circle == secondSelectedCircle && !isDragging) {
+                firstSelectedCircle.isSelected = false;
+                firstSelectedCircle = circle;
+                
+                circle.isSelected = true;
+                parentInput.value = circle.label;
+            }
+            else {
+                secondSelectedCircle.isSelected = false;
+                circle.isSelected = true;
+                
+                secondSelectedCircle = circle;
+                childInput.value = circle.label;
+            }
 
-      isDragging = true;
+            isDragging = true;
 
-      draw();
-      return;
+            draw();
+            return;
+        }
     }
-  }
 }
 
 let isDragging = false;
@@ -561,14 +629,14 @@ function stopDragging() {
 
 function dragCircle(e) {
   if (isDragging == true) {
-    if (previousSelectedCircle != null) {
+    if (firstSelectedCircle != null) {
       let x = e.pageX - canvas.offsetLeft;
       let y = e.pageY - canvas.offsetTop;
 
-      previousSelectedCircle.x = x;
-      previousSelectedCircle.y = y;
+      firstSelectedCircle.x = x;
+      firstSelectedCircle.y = y;
 
-      draw();
+      draw(true);
     }
   }
 }
