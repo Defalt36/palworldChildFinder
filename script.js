@@ -6,18 +6,28 @@ window.onload = function() {
     canvas = document.getElementById("myCanvas");
     ctx = canvas.getContext("2d");
     datalist = document.getElementById("myPals");
-    input = document.getElementById("myInput");
-    input.value = "";
     
-    //input.addEventListener('change', inputChanged);
-    input.addEventListener('input', (evt) => {
-        inputChanged();
+    parentInput = document.getElementById("parentInput");
+    parentInput.value = "";
+    
+    parentInput.addEventListener('input', (evt) => {
+        parentInputChanged();
+    });
+    
+    childInput = document.getElementById("childInput");
+    childInput.value = "";
+    
+    childInput.addEventListener('input', (evt) => {
+        childInputChanged();
     });
     
     canvas.onmousedown = canvasClick;
     canvas.onmouseup = stopDragging;
     canvas.onmouseout = stopDragging;
     canvas.onmousemove = dragCircle;
+    
+    previousSelectedCircle = circles[0];
+    previousSelectedCircle.isSelected = true;
     
     populateCirclePositions();
     populateConnections();
@@ -170,22 +180,46 @@ let fixed_circles = [];
 
 let circle_positions = [[200, 200]];
 
-let connectors = [];
+let connectors = new Array;
+let links = new Array;
 
 let colors = ["LightSeaGreen", "RoyalBlue", "Salmon"];
+
+let parentInput;
+let childInput;
+
+let targetChild;
+
+let targetChildChanged = false;
+var lastSeenChildren = new Array;
 
 let circle_radius = 30;
 let max_recursion = 10;
 
-let previousSelectedCircle = circles[0];
+let previousSelectedCircle;
 let lastUpdatedCircle = circles[0];
 
-function inputChanged() {
-    console.log(input.value);
-    let obj = getObject(input.value);
+function parentInputChanged() {
+    let obj = getObject(parentInput.value);
     if ( obj != null) {
         previousSelectedCircle = obj;
         draw();
+    }
+}
+
+function childInputChanged() {
+    let obj = getObject(childInput.value);
+    if ( obj != null) {
+        targetChild = obj.label;
+        targetChildChanged = true;
+        draw();
+    }
+    else {
+        targetChild = null;
+        if (targetChildChanged) {
+            targetChildChanged = false;
+            draw();
+        }
     }
 }
 
@@ -198,6 +232,7 @@ function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     drawConnectors();
+    drawLinks();
     drawCircles();
 }
 
@@ -213,12 +248,18 @@ function drawConnectors () {
         lastUpdatedCircle = previousSelectedCircle;
         clearColors();
 
-        let seen_values = [ ];
-        let recursion_count = 0;
         let randomColor = '#'+(Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0');
         
-        recursiveGetRelations(previousSelectedCircle.label, new Array(), new Array(), 0);
+        recursiveGetRelations(previousSelectedCircle.label, new Array(), new Array(), 0, new Array());
     }
+}
+
+function drawLinks() {
+    if (links.length != 0) {
+        for(i=0;i<links.length;i++) {
+            drawConnectLine(links[i][0], links[i][1]);
+        }
+    }        
 }
 
 function clearColors() {
@@ -230,13 +271,16 @@ function clearColors() {
 }
 
 function recursiveGetRelations(parent_name, seen_parent, seen_children, count) {
+    //console.log(parent_name);
     let parent = getObject(parent_name);
     let old_count = count;
     if (count == 0) {
+        lastSeenChildren = new Array();
         parent.fill = "Purple";
         parent.alpha = 1;
         seen_children.push(parent_name);
     }
+    lastSeenChildren.push(parent);
     if(!seen_parent.includes(parent_name)) {
         seen_parent.push(parent_name);
         count++
@@ -253,6 +297,15 @@ function recursiveGetRelations(parent_name, seen_parent, seen_children, count) {
                 if(!seen_children.includes(child_name)) {
                     seen_children.push(parent_name);
                     if (child.recursion > count || child.recursion == 0) {
+                        if (targetChild == child_name) {
+                            links = [];
+                            lastSeenChildren.push(child);
+                            for(i=1;i<lastSeenChildren.length;i++) {
+                                links.push([lastSeenChildren[i-1], lastSeenChildren[i]]);
+                            }
+                            lastSeenChildren.pop();
+                            console.log(links);
+                        }
                         child.recursion = count;
                     }
                     if (child.recursion <= colors.length) {
@@ -265,9 +318,10 @@ function recursiveGetRelations(parent_name, seen_parent, seen_children, count) {
             }
         }
     }
+    lastSeenChildren.pop();
 }
 
-function drawLinks(parent, child) {
+function drawConnectLine(parent, child) {
     dist = distance(parent.x,parent.y,child.x,child.y);
     scaled = (1/dist)*(child.r + 5);
     
@@ -278,8 +332,8 @@ function drawLinks(parent, child) {
     cY = (parent.y-child.y)*scaled+child.y;
     
     ctx.lineCap = 'round'
-    ctx.lineWidth = 2;
-    ctx.globalAlpha = 0.5;
+    ctx.lineWidth = 3;
+    ctx.globalAlpha = 0.75;
     
     canvas_line(ctx, pX, pY, cX, cY);
     
@@ -361,7 +415,7 @@ function populateDatalist() {
 }
 
 function canvas_line(context, fromx, fromy, tox, toy) {
-    ctx.strokeStyle = "purple";
+    ctx.strokeStyle = "black";
     
     ctx.beginPath();
     ctx.moveTo(fromx, fromy);
@@ -436,7 +490,8 @@ function Circle(label, x, y, r, fill, stroke) {
     this.draw = function () {
         var iconImg = new Image();
         iconImg.src = "./images/" + this.label.replace(' ', '_') + ".png";
-        if (iconImg.complete) {
+        
+        iconImg.onload = function() {
             // save state as restoring is the only way to remove a clip-mask
             ctx.save();
 
@@ -488,6 +543,7 @@ function canvasClick(e) {
       previousSelectedCircle = circle;
 
       circle.isSelected = true;
+      parentInput.value = circle.label;
 
       isDragging = true;
 

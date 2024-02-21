@@ -15,23 +15,31 @@ body {
     background-image: url("background.png");
     background-size: 100%;
 }
-#myCanvas {
-    display: block;
-}
 label {
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     font-weight: bold;
     padding: 10px;
     position: absolute;
+    min-width: 270px;
+}
+input {
+    float: right;
+}
+label:has(#childInput) {
+    top: 50px;
+}
+#myCanvas {
+    display: block;
 }
 </style>
 </head>
 <body>
 
-<label>Pick a pal: <input id="myInput" list="myPals"/></label>
-<datalist id="myPals">
-</datalist>
+<datalist id="myPals"></datalist>
+
+<label>Pick a parent: <input id="parentInput" list="myPals"/></label>
+<label>Pick a child: <input id="childInput" list="myPals"/></label>
 
 <canvas id="myCanvas" style="border:1px solid #d3d3d3;"></canvas>
 
