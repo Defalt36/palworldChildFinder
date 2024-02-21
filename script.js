@@ -188,7 +188,7 @@ let parentInput;
 let childInput;
 
 let targetChildChanged = false;
-var lastSeenChildren = new Array();
+let lastSeenChildren = new Array();
 
 let circle_radius = 30;
 let max_recursion = 10;
@@ -209,12 +209,11 @@ function parentInputChanged() {
 function childInputChanged() {
     let obj = getObject(childInput.value);
     if ( obj != null) {
-        targetChild = obj.label;
+        secondSelectedCircle = obj;
         targetChildChanged = true;
         draw();
     }
     else {
-        targetChild = null;
         if (targetChildChanged) {
             targetChildChanged = false;
             draw();
@@ -570,23 +569,24 @@ function canvasClick(e) {
         let distanceFromCenter = Math.sqrt(Math.pow(circle.x - clickX, 2) + Math.pow(circle.y - clickY, 2))
         if (distanceFromCenter <= circle.r) {
             
-            // clicked a circle while a second option was already selected
-            if(circle == secondSelectedCircle) {
-                firstSelectedCircle.isSelected = false;
-                firstSelectedCircle = circle;
-                
-                circle.isSelected = true;
-                parentInput.value = circle.label;
+            if (circle != firstSelectedCircle) {
+                // clicked a circle while a second option was already selected
+                if(circle == secondSelectedCircle) {
+                    firstSelectedCircle.isSelected = false;
+                    firstSelectedCircle = circle;
+                    
+                    circle.isSelected = true;
+                    parentInput.value = circle.label;
+                    links = new Array();
+                }
+                else {
+                    secondSelectedCircle = circle;
+                    
+                    circle.isSelected = true;
+                    childInput.value = circle.label;
+                }
             }
             else {
-                secondSelectedCircle.isSelected = false;
-                secondSelectedCircle = circle;
-                
-                circle.isSelected = true;
-                console.log(secondSelectedCircle.label);
-                gatherRelations();
-            }
-            if (circle == firstSelectedCircle ) {
                 isDragging = true;
             }
 
