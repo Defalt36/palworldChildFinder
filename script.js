@@ -517,15 +517,7 @@ function Circle(label, icon, x, y, r, fill, stroke) {
     this.stroke = stroke;
 
     this.draw = function () {
-<<<<<<< Updated upstream
-        var iconImg = new Image();
-        iconImg.src = "./images/" + this.label.replace(' ', '_') + ".png";
-        
-        iconImg.onload = () => {
-            // save state as restoring is the only way to remove a clip-mask
-=======
         if(this.isSelected) {
->>>>>>> Stashed changes
             ctx.save();
             ctx.arc(this.x, this.y, this.r*2, this.startingAngle, this.endingAngle);
             const gradient = ctx.createRadialGradient(this.x, this.y, this.r, this.x, this.y, this.r*1.5);
@@ -534,19 +526,6 @@ function Circle(label, icon, x, y, r, fill, stroke) {
             ctx.fillStyle = gradient;
             ctx.fill();
             ctx.restore();
-<<<<<<< Updated upstream
-            
-            if (this.recursion > colors.length) {
-                ctx.globalAlpha = 0.25;
-                ctx.font = circle_radius.toString() + "px Arial ";
-                ctx.fillStyle = "black";
-                ctx.textAlign = "center";
-                ctx.fillText(this.recursion, this.x, this.y+circle_radius/2.5);
-            }
-            
-            ctx.globalAlpha = 1;
-        };
-=======
         }
         
         // save state as restoring is the only way to remove a clip-mask
@@ -582,7 +561,6 @@ function Circle(label, icon, x, y, r, fill, stroke) {
             ctx.fillText(this.recursion, this.x, this.y+circle_radius/2.5);
         }            
         ctx.globalAlpha = 1;
->>>>>>> Stashed changes
     }
 }
 
