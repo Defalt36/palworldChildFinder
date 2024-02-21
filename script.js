@@ -197,6 +197,7 @@ var targetChild;
 
 let firstSelectedCircle;
 let secondSelectedCircle;
+let circleToDrag;
 
 function parentInputChanged() {
     let obj = getObject(parentInput.value);
@@ -251,12 +252,12 @@ function firstDraw() {
 //draw circles
 function drawCircles() {
     for(let i = circles.length - 1; i >= 0; i--) {
-        if(circles[i] != firstSelectedCircle) {
+        if(circleToDrag != null && circles[i] != circleToDrag) {
             circles[i].draw();
         }
     }
     // always draw selected circle on top
-    firstSelectedCircle.draw();
+    circleToDrag.draw();
 }
 
 function gatherRelations () {
@@ -586,9 +587,8 @@ function canvasClick(e) {
                     childInput.value = circle.label;
                 }
             }
-            else {
-                isDragging = true;
-            }
+            circleToDrag = circle;
+            isDragging = true;
 
             draw();
             return;
@@ -604,12 +604,12 @@ function stopDragging() {
 
 function dragCircle(e) {
   if (isDragging == true) {
-    if (firstSelectedCircle != null) {
+    if (circleToDrag != null) {
       let x = e.pageX - canvas.offsetLeft;
       let y = e.pageY - canvas.offsetTop;
 
-      firstSelectedCircle.x = x;
-      firstSelectedCircle.y = y;
+      circleToDrag.x = x;
+      circleToDrag.y = y;
 
       draw();
     }
